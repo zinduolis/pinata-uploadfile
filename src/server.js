@@ -23,3 +23,5 @@ app.get('/nft', async (req, res) => {
         json: arr[1]
     })
 });
+
+module.exports = app;
