@@ -5,7 +5,6 @@ const fs = require('fs');
 const randomWords = require('random-words');
 const crypto = require('crypto');
 
-const readableStreamForFile = fs.createReadStream('./images/temporary.svg');
 const options = {
     pinataMetadata: {
         name: 'My NFT Collection',
@@ -20,6 +19,7 @@ const options = {
 };
 
 const pinFileToIPFS = () => {
+    const readableStreamForFile = fs.createReadStream('public/images/temporary.svg');
     return pinata.pinFileToIPFS(readableStreamForFile, options).then((result) => {
         return `https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`;
     }).catch((err) => {
@@ -46,6 +46,11 @@ const getMetadata = async () => {
     };
     const metadata = await pinJSONToIPFS(body);
     console.log(metadata);
+    const arr = [];
+    arr.push(imageUrl);
+    arr.push(metadata);
+
+    return arr;
 }
 
 const createSVG = () => {
@@ -54,7 +59,7 @@ const createSVG = () => {
     let hash = crypto.createHash('md5').update(randomPhrase).digest("hex");
     let color = hash.substring(hash.length - 6);
     const svgValue = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='#" + color + "' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>" + randomPhrase + "</text></svg>";
-    fs.writeFile('./images/temporary.svg', svgValue, function (err) {
+    fs.writeFile('public/images/temporary.svg', svgValue, function (err) {
         if (err) return console.log(err);
         console.log("SVG created successfully!!!");
     })
@@ -62,3 +67,5 @@ const createSVG = () => {
 
 // createSVG()
 // getMetadata()
+
+module.exports = {createSVG, getMetadata};
