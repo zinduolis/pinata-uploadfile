@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const index = require('./index');
+const pinataProcessing = require('./pinataProcessing');
 
 const app = express();
 const PORT = 3001;
@@ -16,8 +16,8 @@ app.listen(PORT, (err) => {
 } )
 
 app.get('/nft', async (req, res) => {
-    await index.createSVG();
-    const arr = await index.getMetadata();
+    await pinataProcessing.createSVG();
+    const arr = await pinataProcessing.getMetadata();
     res.status(200).send({
         image: arr[0],
         json: arr[1]
