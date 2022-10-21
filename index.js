@@ -15,6 +15,10 @@ app.listen(PORT, (err) => {
     console.log("Server is running");
 } )
 
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
+  })
+
 app.get('/nft', async (req, res) => {
     await pinataProcessing.createSVG();
     const arr = await pinataProcessing.getMetadata();
