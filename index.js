@@ -31,11 +31,12 @@ app.get('/', (req, res) => {
   })
 
 app.get('/nft', async (req, res) => {
-    await pinataProcessing.createSVG();
+    const f = await pinataProcessing.createSVG();
     const arr = await pinataProcessing.getMetadata();
     res.status(200).send({
         image: arr[0],
-        json: arr[1]
+        json: arr[1],
+        file: f
     })
 });
 
