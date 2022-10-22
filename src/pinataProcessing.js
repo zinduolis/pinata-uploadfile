@@ -68,7 +68,6 @@ const createSVG = () => {
         if (err) return console.log(err);
         console.log("SVG created successfully!!!");
     })
-    return file;
 }
 
 // createSVG()

@@ -21,9 +21,18 @@ app.get('/', (req, res) => {
     res.send('Hey this is my API running 🥳')
   })
 
-  app.get('/showfile', (req, res) => {
-    const file = path.join(process.cwd(), 'public/images', 'temporary.svg');
-    const stringified = fs.readFileSync(file, 'utf8');
+  app.get('/showfiles', (req, res) => {
+    fs.readdir('/tmp', function (err, files) {
+    //handling error
+    if (err) {
+        return console.log('Unable to scan directory: ' + err);
+    } 
+    //listing all files using forEach
+    files.forEach(function (file) {
+        // Do whatever you want to do with the file
+        console.log(file); 
+    });
+    });
     res.status(200).send({
         stringifield: stringified,
         file: file
