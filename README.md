@@ -1,0 +1,1 @@
+Express APIs calling nodejs code to generate an NFT from random letters and random background color and upload it IPFS and pin it using pinata.
