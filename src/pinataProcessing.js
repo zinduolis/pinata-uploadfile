@@ -20,7 +20,8 @@ const options = {
 };
 
 const pinFileToIPFS = () => {
-    const file = path.join(process.cwd(), 'public/images', 'temporary.svg');
+    // const file = path.join(process.cwd(), 'public/images', 'temporary.svg');
+    const file = path.join('/tmp/', 'temporary.svg');
     const readableStreamForFile = fs.createReadStream(file);
     return pinata.pinFileToIPFS(readableStreamForFile, options).then((result) => {
         return `https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`;
@@ -61,7 +62,8 @@ const createSVG = () => {
     let hash = crypto.createHash('md5').update(randomPhrase).digest("hex");
     let color = hash.substring(hash.length - 6);
     const svgValue = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='#" + color + "' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>" + randomPhrase + "</text></svg>";
-    const file = path.join(process.cwd(), 'public/images', 'temporary.svg');
+    // const file = path.join(process.cwd(), 'public/images', 'temporary.svg');
+    const file = path.join('/tmp/', 'temporary.svg');
     fs.writeFileSync(file, svgValue, function (err) {
         if (err) return console.log(err);
         console.log("SVG created successfully!!!");
