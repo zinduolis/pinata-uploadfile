@@ -21,31 +21,19 @@ app.get('/', (req, res) => {
     res.send('Hey this is my API running 🥳')
   })
 
-  app.get('/showfiles', (req, res) => {
-    fs.readdir('/tmp', function (err, files) {
-    //handling error
-    if (err) {
-        return console.log('Unable to scan directory: ' + err);
-    } 
-    //listing all files using forEach
-    files.forEach(function (file) {
-        // Do whatever you want to do with the file
-        console.log(file); 
-    });
-    });
+  app.get('/showtmpfiles', (req, res) => {
+    const files = fs.readdirSync('/tmp');
     res.status(200).send({
-        stringifield: stringified,
-        file: file
+        files: files
     })
   })
 
 app.get('/nft', async (req, res) => {
-    const f = await pinataProcessing.createSVG();
+    await pinataProcessing.createSVG();
     const arr = await pinataProcessing.getMetadata();
     res.status(200).send({
         image: arr[0],
-        json: arr[1],
-        file: f
+        json: arr[1]
     })
 });
 
